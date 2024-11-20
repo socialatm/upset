@@ -6,4 +6,3 @@ RUN apt update -y \
 RUN pip3 install -r requirements.txt
 RUN useradd morph
 USER morph
-STACK=heroku-22
