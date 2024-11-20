@@ -1,5 +1,1 @@
 python-3.11.6
-
-git add runtime.txt
-git commit -m "Update Python runtime to 3.11.6"
-git push origin main
