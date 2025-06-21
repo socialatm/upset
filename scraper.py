@@ -20,8 +20,13 @@ label = []
 favourite = []
 
 def scrape_data():
+    # Fetch the HTML content from the URL
+    url = "https://www.betmma.tips/mma_betting_favorites_vs_underdogs.php?Org=1"
+    headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'}
+    data = requests.get(url, headers=headers, timeout=30)
+
     # set up page to extract table
-    data = requests.get("https://www.betmma.tips/mma_betting_favorites_vs_underdogs.php?Org=1")
+    #data = requests.get("https://www.betmma.tips/mma_betting_favorites_vs_underdogs.php?Org=1")
     soup = BeautifulSoup(data.text, 'html.parser')
 
     # table with 98% width 
@@ -43,6 +48,12 @@ def scrape_data():
         # specific table with the information
         rows = soup.find_all('table', {'cellspacing': "5"})
 
+        # Move outside the row loop
+        h1 = soup.find("h1")
+        h2 = soup.find("h2")
+        event_name = h1.text if h1 else "Unknown Event"
+        location_info = h2.text if h2 else "Unknown Location"
+
         for row in rows:
 
             # check for draw, if draw, then skip
@@ -52,13 +63,9 @@ def scrape_data():
             if odds[0].text not in ['WON', 'LOST']:
                 continue
 
-            # event name
-            h1 = soup.find("h1")
-            # location and date
-            h2 = soup.find("h2")
-            
-            events.append(h1.text)
-            location.append(h2.text)
+            # Use the cached values
+            events.append(event_name)
+            location.append(location_info)
 
             odds_f1 = float(odds[2].text.strip(" @"))
             odds_f2 = float(odds[3].text.strip(" @"))
