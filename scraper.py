@@ -5,7 +5,6 @@ import numpy as np
 import string
 import re
 import datetime
-import sqlite3
 import time
 import os
 
@@ -107,78 +106,18 @@ def create_df():
     
     return df
 
-# functions to compute deltas
 
-def odds_delta(df):
-    if df["Favourite"] == "f1":
-        return df["fighter1_odds"] - df["fighter2_odds"]
-    else:
-        return df["fighter2_odds"] - df["fighter1_odds"]
 
-def reach_delta(df):
-    if df["Favourite"] == "f1":
-        return df["REACH_x"] - df["REACH_y"]
-    else:
-        return df["REACH_y"] - df["REACH_x"]
 
-def slpm_delta(df):
-    if df["Favourite"] == "f1":
-        return df["SLPM_x"] - df["SLPM_y"]
-    else:
-        return df["SLPM_y"] - df["SLPM_x"]
 
-def sapm_delta(df):
-    if df["Favourite"] == "f1":
-        return df["SAPM_x"] - df["SAPM_y"]
-    else:
-        return df["SAPM_y"] - df["SAPM_x"]
+
+ 
     
-def stra_delta(df):
-    if df["Favourite"] == "f1":
-        return df["STRA_x"] - df["STRA_y"]
-    else:
-        return df["STRA_y"] - df["STRA_x"]
-    
-def strd_delta(df):
-    if df["Favourite"] == "f1":
-        return df["STRD_x"] - df["STRD_y"]
-    else:
-        return df["STRD_y"] - df["STRD_x"]
-    
-def td_delta(df):
-    if df["Favourite"] == "f1":
-        return df["TD_x"] - df["TD_y"]
-    else:
-        return df["TD_y"] - df["TD_x"]
 
-def tda_delta(df):
-    if df["Favourite"] == "f1":
-        return df["TDA_x"] - df["TDA_y"]
-    else:
-        return df["TDA_y"] - df["TDA_x"]
-    
-def tdd_delta(df):
-    if df["Favourite"] == "f1":
-        return df["TDD_x"] - df["TDD_y"]
-    else:
-        return df["TDD_y"] - df["TDD_x"]
-
-def suba_delta(df):
-    if df["Favourite"] == "f1":
-        return df["SUBA_x"] - df["SUBA_y"]
-    else:
-        return df["SUBA_y"] - df["SUBA_x"]
-
-def age_delta(df):
-    if df["Favourite"] == "f1":
-        return df["Age_x"] - df["Age_y"]
-    else:
-        return df["Age_y"] - df["Age_x"]
 
 scrape_data()
 df = create_df()
 
-conn = sqlite3.connect('data.sqlite')
-df.to_sql('data', conn, if_exists='replace')
-print('Fights Db successfully constructed and saved')
-conn.close()
+
+# Save the DataFrame to a CSV file
+df.to_csv('data.csv', index=False)
