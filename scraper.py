@@ -113,18 +113,9 @@ def create_df():
     
     return df
 
-
-
-
-
-
- 
-    
-
-
+# Run the scraping function and create the DataFrame
 scrape_data()
 df = create_df()
-
 
 # Save the DataFrame to a CSV file
 df.to_csv('data.csv', index=False)
