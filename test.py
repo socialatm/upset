@@ -36,6 +36,9 @@ def scrape_data():
     # find all links in that table. Limit to 5 links for testing
     links = table.find_all('a', href=True, limit=5)  if testing == True else table.find_all('a', href=True)
 
+    if testing == True:
+        print(f"Testing with {len(links)} links")
+
     # append all links to a list 
     for link in links:
         all_links.append("https://www.betmma.tips/"+link.get('href'))
