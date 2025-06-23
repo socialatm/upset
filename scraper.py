@@ -8,6 +8,8 @@ import datetime
 import time
 import os
 
+testing = True # Set to True for testing with limited data
+
 all_links = []
 location = []
 events = []
@@ -31,8 +33,11 @@ def scrape_data():
 
     # table with 98% width 
     table = soup.find('table', {'width': "98%"})
-    # find all links in that table
-    links = table.find_all('a', href=True)
+    # find all links in that table. Limit to 5 links for testing
+    links = table.find_all('a', href=True, limit=5)  if testing == True else table.find_all('a', href=True)
+
+    if testing == True:
+        print(f"Testing with {len(links)} links")
 
     # append all links to a list 
     for link in links:
@@ -118,4 +123,4 @@ scrape_data()
 df = create_df()
 
 # Save the DataFrame to a CSV file
-df.to_csv('data.csv', index=False)
+df.to_csv('test.csv', index=False) if testing == True else df.to_csv('data.csv', index=False)
