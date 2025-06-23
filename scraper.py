@@ -8,7 +8,7 @@ import datetime
 import time
 import os
 
-testing = True # Set to True for testing with limited data
+testing = False # Set to True for testing with limited data
 
 all_links = []
 location = []
